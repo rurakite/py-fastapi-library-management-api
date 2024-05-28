@@ -1,11 +1,11 @@
-from typing import Union, List
+from typing import List
 
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app import crud
 from app import schemas
-from app import models
+
 from app.database import SessionLocal
 
 app = FastAPI()
@@ -61,7 +61,13 @@ def get_book_by_author(
         db: Session = Depends(get_db)
         ):
 
-    return crud.get_books_by_author(db, author_id=author_id, skip=skip, limit=limit)
+    return (
+        crud.get_books_by_author(
+            db, author_id=author_id,
+            skip=skip,
+            limit=limit
+        )
+    )
 
 
 @app.post("/books/", response_model=schemas.Book)
