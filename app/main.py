@@ -28,7 +28,7 @@ def get_all_authors(
     return crud.get_authors(db, skip=skip, limit=limit)
 
 
-@app.get("/authors/{author_id}", response_model=schemas.Author)
+@app.get("/authors/{author_id}/", response_model=schemas.Author)
 def get_single_author(author_id: int, db: Session = Depends(get_db)):
     db_author = crud.get_author(db, author_id=author_id)
     if db_author is None:
